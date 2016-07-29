@@ -8,6 +8,10 @@
   },
   "author": "Charu Tiwari",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charutiwari04/accessibility-app.git"
+  },
   "dependencies": {
     "angular-route": "^1.5.7",
     "browser-sync": "^2.12.5",
@@ -27,6 +31,6 @@
     "gulp-usemin": "^0.3.23"
   },
   "keywords": [
-    "transportapp"
+    "restaurantapp"
   ]
 }
