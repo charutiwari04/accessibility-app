@@ -1,0 +1,58 @@
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-8">
+				<div class="resto-details">
+				<h1>{{obj.name}}</h1>
+				<img ng-src="{{obj.image_url}}" alt="image of {{obj.name}}" /><br><br>
+				<span>{{obj.rating}}</span>
+				<img ng-src="{{obj.rating_img_url}}" alt="rating of {{obj.name}}" /><br><br>
+				<p><b>Address:</b> {{obj.address}}</p>
+				<p><b>Phone No:</b> {{obj.display_phone}}</p>
+				</div>
+				<hr>
+				<div class="resto-reviews">
+				<h3>Reviews</h3>
+				<ul>
+					<li ng-repeat="review in obj.reviews">
+						<img ng-src="{{review.user.image_url}}" alt="user {{review.user.name}} photo">
+						<h4>{{review.user.name}}</h4>
+						<img ng-src="{{review.rating_image_url}}" alt="review by user {{review.user.name}}">
+						<p>{{review.excerpt}}</p>
+					</li>
+				</ul>
+				</div><br>
+				<hr>
+				<div class="modal fade check" role="dialog" tabindex="-1" aria-hidden="true" id="flash-message">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title"><strong>Success!!!</strong></h4>
+							</div>
+							<div class="modal-body">
+								<p><span>{{getMessage}}"</span></p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default closeBtn" ng-click="clearMessage(e)" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-lg" ng-click="clicked=!clicked" id="write-review"><b>Write a Review</b></button><br><br>
+				<div class="resto-form" ng-init="clicked = false" ng-show="clicked">
+					<form name="form1">
+						<label for="write-name">Your Name:</label><br>
+						<input name="yourName" ng-model="revName" id="write-name" type="text" required><br>
+						<span class="err-msg" ng-show="form1.yourName.$touched && form1.yourName.$invalid">Please enter your name!!!</span><br><br>
+						<label for="review">Review:</label><br>
+						<input ng-model="review" name="review" id="review" type="text" required>
+						<span class="err-msg" ng-show="form1.review.$touched && form1.review.$invalid">This field is required!!!</span><br><br>
+						<button type="button" ng-disabled="form1.$invalid" data-toggle="modal" data-target=".check" class="btn" ng-click="submitRev(this)" id="submit-btn"><b>Submit Your Review</b></button>
+					</form>
+				</div><br>
+				<a href="#/" id="go-back-btn"><button class="btn btn-primary">Go Back</button></a>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
