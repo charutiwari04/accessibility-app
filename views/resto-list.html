@@ -1,26 +1,26 @@
 		<div class="menu">
 				<label for="query">Search:</label>
-				<input id="query" ng-model="query" aria-label="search for restaurants" role="searchbox" type="text">
+				<input id="query" ng-model="query" aria-label="search for restaurants" role="search" type="text">
 				<div role="status" id="restaurant-list-info" aria-live="polite" aria-atomic="true">Showing {{(businesses|filter:{name:query}).length}} of {{businesses.length}}</div><br>
 				<label for="order-by">Sort By:</label>
-				<Select ng-model="sortBy" role="select" aria-label="Select Order By field" id="order-by">
-					<option role="option"></option>
-					<option role="option">rating</option>
-					<option role="option">review_count</option>
-					<option role="option">name</option>
+				<select ng-model="sortBy" aria-label="Select Order By field" id="order-by">
+					<option></option>
+					<option>rating</option>
+					<option>review_count</option>
+					<option>name</option>
 				</select>
 		</div>
 		<div class="container">
 				<h2 role="heading">Best Restaurants in SFO</h2>
-				<div class="row box" ng-repeat="business in businesses | filter:{name:query} | orderBy:sortBy" role="group">
-					<div class="col-md-4" role="row">
+				<article class="box" ng-repeat="business in businesses | filter:{name:query} | orderBy:sortBy">
+					<div class="col-md-4">
 						<a href="#/{{business.id}}"><img src={{business.image_url}} alt="restaurant {{$index+1}} {{business.name}}"></a>
 					</div>
 					<div class="col-md-8">
-						<h4 ng-model="id"><a href="#/{{business.id}}">{{business.name}}</a></h4>
-						<img src={{business.rating_img_url}} alt="rating {{business.review_count}}"><span>{{business.review_count}} Reviews</span></br>
+						<h4 tabindex="-1" ng-model="id"><a href="#/{{business.id}}">{{business.name}}</a></h4>
+						<img src={{business.rating_img_url}} alt="rating {{business.review_count}} out of 5"><span>{{business.review_count}} Reviews</span></br>
 						<span>"{{business.snippet_text}}"</span><br>
 						<span><b>Category:</b> {{business.category}}</span>
 					</div>
-				</div>
+				</article>
 		</div>

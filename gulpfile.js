@@ -8,7 +8,6 @@ var htmlmin = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
 var jsonminify = require('gulp-jsonminify');
 
-  
 gulp.task('serve', [], function(){
 	browserSync.init({
 		server: "./"
@@ -16,7 +15,7 @@ gulp.task('serve', [], function(){
 	browserSync.stream();
 });
 
-gulp.task('default',['compress', 'compsw', 'compcss', 'comphtml', 'compimg', 'jsonmin', 'serve'], function() {
+gulp.task('default',['compress', 'compsw', 'compcss', 'comphtml', 'comphtm', 'compimg', 'jsonmin', 'serve'], function() {
 	gulp.watch('js/**/*.js', ['lint']);
 });
 
@@ -57,6 +56,11 @@ gulp.task('comphtml', function(){
 	return gulp.src('./*.html')
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('dist'))
+});
+gulp.task('comphtm', function(){
+	return gulp.src('views/*.html')
+		.pipe(htmlmin({collapseWhitespace: true}))
+		.pipe(gulp.dest('dist/views'))
 });
 gulp.task('compimg', function(){
 	gulp.src('imgs/**/*')

@@ -20,6 +20,7 @@ header{
 }
 .dec{
 	font-weight: bold;
+	color: black;
 }
 .menu{
 	text-align: center;
@@ -29,8 +30,10 @@ header{
 	height: 80px;
 }
 main{
-	padding-top: 150px;
+	padding-top: 100px;
 	background-color: #FFEFD5;
+	width: 100%;
+	padding-bottom: 50px;
 }
 .box{
 	background-color: white;
@@ -71,7 +74,6 @@ footer{
 	background-color: #1E90FF;
 }
 #footer-note{
-	color: gray;
 	font-weight: bold;
 	font-size: 0.8em;
 	padding-left: 40px;
@@ -82,4 +84,14 @@ footer{
 }
 .err-msg{
 	color: red;
+}
+#your-rating li{
+	list-style: none;
+	display: inline;
+	border-radius: 5px;
+	text-align: center;
+}
+.userPhoto{
+	width: 100px;
+	height: 100px;
 }

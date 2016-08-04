@@ -7,9 +7,10 @@
 				<h1>{{obj.name}}</h1>
 				<img ng-src="{{obj.image_url}}" alt="image of {{obj.name}}" /><br><br>
 				<span>{{obj.rating}}</span>
-				<img ng-src="{{obj.rating_img_url}}" alt="rating of {{obj.name}}" /><br><br>
+				<img ng-src="{{obj.rating_img_url}}" alt="rating {{obj.rating}} out of 5" /><br><br>
 				<p><b>Address:</b> {{obj.address}}</p>
 				<p><b>Phone No:</b> {{obj.display_phone}}</p>
+				<p><b>Open between:</b> {{obj.operating_hours}}</p>
 				</div>
 				<hr>
 				<div class="resto-reviews">
@@ -18,7 +19,8 @@
 					<li ng-repeat="review in obj.reviews">
 						<img ng-src="{{review.user.image_url}}" alt="user {{review.user.name}} photo">
 						<h4>{{review.user.name}}</h4>
-						<img ng-src="{{review.rating_image_url}}" alt="review by user {{review.user.name}}">
+						<img ng-src="{{review.rating_image_url}}" alt="rating {{review.rating}} out of 5">
+						<span>Reviewed {{review.date_reviewed}}</span>
 						<p>{{review.excerpt}}</p>
 					</li>
 				</ul>
@@ -45,6 +47,14 @@
 						<label for="write-name">Your Name:</label><br>
 						<input name="yourName" ng-model="revName" id="write-name" type="text" required><br>
 						<span class="err-msg" ng-show="form1.yourName.$touched && form1.yourName.$invalid">Please enter your name!!!</span><br><br>
+						<label for="your-rating">Your Rating (Press Enter to select):</label><br>
+						<div tabindex="0" id="your-rating">
+							<span tabindex="0"><img ng-module="star1" src="imgs/14x14_0.png" alt="1 out of 5-Terrible"></span>
+							<span tabindex="0"><img ng-module="star2" src="imgs/14x14_0.png" alt="2 out of 5-Poor"></span>
+							<span tabindex="0"><img ng-module="star3" src="imgs/14x14_0.png" alt="3 out of 5-Average"></span>
+							<span tabindex="0"><img ng-module="star4" src="imgs/14x14_0.png" alt="4 out of 5-Very Good"></span>
+							<span tabindex="0"><img ng-module="star5" src="imgs/14x14_0.png" alt="5 out of 5-Excellent"></span>
+						</div><br>
 						<label for="review">Review:</label><br>
 						<input ng-model="review" name="review" id="review" type="text" required>
 						<span class="err-msg" ng-show="form1.review.$touched && form1.review.$invalid">This field is required!!!</span><br><br>
