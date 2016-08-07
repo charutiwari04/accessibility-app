@@ -53,7 +53,7 @@ app.controller("maincontroller", ['$scope', '$rootScope', 'mydata', function($sc
 }]);
 app.controller("restodetailctlr", ['$scope', 'mydata', '$routeParams', function($scope, mydata, $routeParams){
 	$scope.getMessage = "";
-	var rateMsg = ["Terrible", "Poor", "Average", "Very Good", "Excellent"];
+	var starVal="0";
 	mydata.retrieveYelp().then(function(data){
 		$scope.obj={};
 		$scope.businesses = data;
@@ -64,107 +64,56 @@ app.controller("restodetailctlr", ['$scope', 'mydata', '$routeParams', function(
 		}
 	});
 	// event handler functions to handle star ratings.
-	function focusHandler(){
-		if($('#your-rating span').hasClass('selected')){return;}
-		var indx = $('#your-rating span').index(this);
-		for(var i= 0; i<=indx; i++){
-			$('#your-rating span img').eq(i).attr('src', "imgs/14x14_3.png");
-		}
-	}
-	function blurHandler(){
-		if($('#your-rating span').hasClass('selected')){return;}
-		var indx = $('#your-rating span').index(this);
-		for(var i= 0; i<=indx; i++){
-			$('#your-rating span img').eq(i).attr('src', "imgs/14x14_0.png");
-		}
-	}
-	$('#your-rating span').focus(focusHandler);
-	$('#your-rating span').mouseover(focusHandler);
-	$('#your-rating span').blur(blurHandler);
-	$('#your-rating span').mouseout(blurHandler);
-	var first = true;
-	function handlerFunction(e){
-		if((e.which === 13) || (e.which === 1)){
-		if(first){
-			var indx = $('#your-rating span').index(this);
-			$('#your-rating span').addClass('selected');
-			for(var i= 0; i<=indx; i++){
-				$('#your-rating span img').eq(i).attr('src', "imgs/14x14_3.png");
-			}
-			switch(indx){
-				case 0:
-					$scope.star1 = true;
-					break;
-				case 1:
-					$scope.star2 = true;
-					break;
-				case 2:
-					$scope.star3 = true;
-					break;
-				case 3:
-					$scope.star4 = true;
-					break;
-				case 4:
-					$scope.star5 = true;
-					break;
-			}
-		}
-		else{
-			$('#your-rating span').removeClass('selected');
-			for(var i= 0; i<=4; i++){
-				$('#your-rating span img').eq(i).attr('src', "imgs/14x14_0.png");
-			}
-		}
-		first = !first;
-		}
-	};
-	$('#your-rating span').click(handlerFunction);
-	$('#your-rating span').keydown(handlerFunction);
+	$('.rating input').change(function () {
+		var $radio = $(this);
+		starVal = $radio.val();
+		$('.rating .selected').removeClass('selected');
+		$radio.closest('label').addClass('selected');
+	});
 	// function to handle form submit.
 	$scope.submitRev = function(e){
 		var srcUrl = "";
 		var srcUsr = "";
 		$scope.getMessage = "Review Submitted";
-		if($scope.star1){
-			srcUrl="https://s3-media1.fl.yelpcdn.com/assets/2/www/img/f64056afac01/ico/stars/v1/stars_1.png";
-			srcUsr="imgs/usr1.jpg";
-		}
-		if($scope.star2){
-			srcUrl="https://s3-media2.fl.yelpcdn.com/assets/2/www/img/b561c24f8341/ico/stars/v1/stars_2.png";
-			srcUsr="imgs/usr2.jpg";
-		}
-		if($scope.star3){
-			srcUrl="https://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png";
-			srcUsr="imgs/usr1.jpg";
-		}
-		if($scope.star4){
-			srcUrl="http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png";
-			srcUsr="http://s3-media3.fl.yelpcdn.com/photo/hk31BkJvJ8qcqoUvZ38rmQ/ms.jpg";
-		}
-		if($scope.star5){
-			srcUrl="https://s3-media1.fl.yelpcdn.com/assets/2/www/img/f1def11e4e79/ico/stars/v1/stars_5.png";
-			srcUsr = "http://s3-media3.fl.yelpcdn.com/photo/e2cUD11T3u54V5qgpsDJCA/ms.jpg";
+		switch(starVal){
+			case "1":
+				srcUrl="https://s3-media1.fl.yelpcdn.com/assets/2/www/img/f64056afac01/ico/stars/v1/stars_1.png";
+				srcUsr="imgs/usr1.jpg";
+				break;
+			case "2":
+				srcUrl="https://s3-media2.fl.yelpcdn.com/assets/2/www/img/b561c24f8341/ico/stars/v1/stars_2.png";
+				srcUsr="imgs/usr2.jpg";
+				break;
+			case "3":
+				srcUrl="https://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png";
+				srcUsr="imgs/usr1.jpg";
+				break;
+			case "4":
+				srcUrl="http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png";
+				srcUsr="http://s3-media3.fl.yelpcdn.com/photo/hk31BkJvJ8qcqoUvZ38rmQ/ms.jpg";
+				break;
+			case "5":
+				srcUrl="https://s3-media1.fl.yelpcdn.com/assets/2/www/img/f1def11e4e79/ico/stars/v1/stars_5.png";
+				srcUsr = "http://s3-media3.fl.yelpcdn.com/photo/e2cUD11T3u54V5qgpsDJCA/ms.jpg";
+				break;
+			default:
+				srcUrl="";
+				srcUsr = "http://s3-media3.fl.yelpcdn.com/photo/e2cUD11T3u54V5qgpsDJCA/ms.jpg";
 		}
 		var d = new Date();
 		var n = d.toUTCString();
 		n = n.substr(5, 11);
 		var htmlToAdd = '<li>' +
-						'<img class="userPhoto" src='+srcUsr+'>'+
+						'<img class="userPhoto" alt="user name '+$scope.revName+ '"src='+srcUsr+'>'+
 						'<h4>'+$scope.revName+'</h4>' +
-						'<img src='+srcUrl+'>'+
+						'<img alt="'+ starVal+' out of 5" src='+srcUrl+'>'+
 						'<span> Reviewed '+n+'</span>'+
 						'<p>'+$scope.review+'</p>' + '</li>';
 		$('.resto-reviews ul').append(htmlToAdd);
 		$scope.revName = '';
 		$scope.review = '';
-		$('#your-rating span img').attr('src', "imgs/14x14_0.png");
-		$('#your-rating span').removeClass('selected');
-		$scope.star1=false;
-		$scope.star2=false;
-		$scope.star3=false;
-		$scope.star4=false;
-		$scope.star5=false;
-		first = true;
+		$('.rating .selected').removeClass('selected');
+		$('.rating input:radio').attr("checked", false);
 		$scope.form1.$setPristine();
 		$scope.form1.$setUntouched();
 		$('.check').modal('show');
