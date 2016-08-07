@@ -7,7 +7,16 @@ var cssmin = require('gulp-cssmin');
 var htmlmin = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
 var jsonminify = require('gulp-jsonminify');
+var gulp = require('gulp');
+var fontmin = require('gulp-fontmin');
 
+gulp.task('fontmn', function () {
+    return gulp.src('fonts/*.ttf')
+        .pipe(fontmin({
+            text: '天地玄黄 宇宙洪荒',
+        }))
+        .pipe(gulp.dest('dist/fonts'));
+});
 gulp.task('serve', [], function(){
 	browserSync.init({
 		server: "./"
@@ -15,7 +24,7 @@ gulp.task('serve', [], function(){
 	browserSync.stream();
 });
 
-gulp.task('default',['compress', 'compsw', 'compcss', 'comphtml', 'comphtm', 'compimg', 'jsonmin', 'serve'], function() {
+gulp.task('default',['compress', 'compsw', 'compcss', 'comphtml', 'comphtm', 'compimg', 'jsonmin', 'serve', 'fontmn'], function() {
 	gulp.watch('js/**/*.js', ['lint']);
 });
 
