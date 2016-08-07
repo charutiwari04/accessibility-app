@@ -31,7 +31,7 @@ gulp.task('serve', [], function(){
 	browserSync.stream();
 });
 
-gulp.task('default',['compress', 'compsw', 'compcss', 'comphtml', 'comphtm', 'compimg', 'jsonmin', 'serve', 'fontmn', 'fontmn1'], function() {
+gulp.task('default',['compress', 'compcss', 'comphtml', 'comphtm', 'compimg', 'jsonmin', 'serve', 'fontmn', 'fontmn1'], function() {
 	gulp.watch('js/**/*.js', ['lint']);
 });
 
@@ -57,12 +57,6 @@ gulp.task('compress', function(){
 	.pipe(uglify())
 	.pipe(gulp.dest('dist/js'));
 });
-gulp.task('compsw', function(){
-	return gulp.src(['sw.js'])
-	.pipe(uglify())
-	.pipe(gulp.dest('dist'));
-});
-
 gulp.task('compcss', function () {
 	gulp.src('css/**/*.css')
 		.pipe(cssmin())
