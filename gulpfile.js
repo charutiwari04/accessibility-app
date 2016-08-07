@@ -17,6 +17,13 @@ gulp.task('fontmn', function () {
         }))
         .pipe(gulp.dest('dist/fonts'));
 });
+gulp.task('fontmn1', function () {
+    return gulp.src('fonts/*.woff2')
+        .pipe(fontmin({
+            text: '天地玄黄 宇宙洪荒',
+        }))
+        .pipe(gulp.dest('dist/fonts'));
+});
 gulp.task('serve', [], function(){
 	browserSync.init({
 		server: "./"
@@ -24,7 +31,7 @@ gulp.task('serve', [], function(){
 	browserSync.stream();
 });
 
-gulp.task('default',['compress', 'compsw', 'compcss', 'comphtml', 'comphtm', 'compimg', 'jsonmin', 'serve', 'fontmn'], function() {
+gulp.task('default',['compress', 'compsw', 'compcss', 'comphtml', 'comphtm', 'compimg', 'jsonmin', 'serve', 'fontmn', 'fontmn1'], function() {
 	gulp.watch('js/**/*.js', ['lint']);
 });
 
